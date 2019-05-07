@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
     int len_old = 0, len_d = 0;
     //uint8_t p[] = "751f621ea5c8f930", iv[] = "2624750004598718", data[2048] = "zheng";
-    uint8_t p[] = "751f621ea5c8f930", iv[] = "2624750004598718", data[2048] = "zheng";
+    uint8_t p[] = "751f621ea5c8f930", iv[] = "2624750004598718", data[2048] = "zheng\r\nfjdkaldfasafsdjadjsaldsafjaskfldafdsjadfla";
     void *e, *d;
     e = (void *)acm_encode(iv, p, data, strlen(data));
 	fprintf(stderr, "%s\n", (char *)e);
