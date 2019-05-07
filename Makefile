@@ -13,7 +13,7 @@ springcleaning+=$(OutPut)
 all: for_main
 
 for_main:
-	gcc -g main.c aes.c decode.c encode.c acm_encryption.c -o main
+	gcc -g main.c aes.c encode_decode.c acm_encryption.c -o main
 	
 clean:
 	-@rm  *.o main

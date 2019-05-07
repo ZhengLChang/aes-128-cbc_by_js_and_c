@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
     e = (void *)acm_encode(iv, p, data, strlen(data));
 	fprintf(stderr, "%s\n", (char *)e);
 	d = (void *)acm_decode(iv, p, e, &len_d);
+  fprintf(stderr, "%s===\n", d);
 
 	free(e);
 	free(d);

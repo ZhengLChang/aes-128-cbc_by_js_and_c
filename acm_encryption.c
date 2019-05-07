@@ -17,14 +17,14 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <assert.h>
 #include "aes.h"
-#include "b64.h"
+#include "encode_decode.h"
 
 char *acm_encode(uint8_t*iv, uint8_t *key, const uint8_t *data, unsigned int len)
 {
     uint8_t *in;
-    char *encode_data;
+    char *encode_data = NULL;
     unsigned int real_len, in_len;
     struct AES_ctx ctx;
 
@@ -41,20 +41,26 @@ char *acm_encode(uint8_t*iv, uint8_t *key, const uint8_t *data, unsigned int len
     memset(in + real_len, in_len - real_len, in_len - real_len);
 
     AES_CBC_encrypt_buffer(&ctx, in, in_len);
-    encode_data = b64_encode(in, in_len);
+
+    encode_data = calloc(1, BASE64_LENGTH(in_len));
+    assert(encode_data != NULL);
+    base64_encode(in, in_len, encode_data);
     return encode_data;
 }
 
 uint8_t *acm_decode(uint8_t*iv, uint8_t *key, const char *in, unsigned int *out_len)
 {
     int i;
-    char *decode_data;
+    char *decode_data = NULL;
     unsigned int ret_len, strip_len, in_len;
     struct AES_ctx ctx;
 
     AES_init_ctx_iv(&ctx, key, iv);
     in_len = strlen(in);
-    decode_data = b64_decode_ex(in, in_len, &ret_len);
+    
+    decode_data = calloc(1, in_len);
+    assert(decode_data != NULL);
+    ret_len = base64_decode(in, decode_data);
 
     if(ret_len % 16)
     {
