@@ -14,6 +14,7 @@ all: for_main
 
 for_main:
 	gcc -g main.c aes.c encode_decode.c acm_encryption.c -o main
+	gcc -std=c99 -g test.c aes.c encode_decode.c acm_encryption.c -o test
 	
 clean:
 	-@rm  *.o main

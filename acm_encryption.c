@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
+#include <alloca.h>
 #include "aes.h"
 #include "encode_decode.h"
 
